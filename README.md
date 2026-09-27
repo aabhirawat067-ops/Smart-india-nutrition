@@ -4,9 +4,14 @@
 
 Smart India Nutrition is an application that incorporates a modern full-stack web design to develop an engaging online platform for users to access the nutritional information and wellness tips necessary for a healthier lifestyle. The tool provides users with personalized nutrition options and solutions based on their specific age or health condition, multiple health calculators, and regional food categorization.
 
-## 🚀 Live Demo
+## 🚀 Live Project
 
-🌐 Frontend Live: (Insert Vercel Link)
+
+**Live Demo:**
+👉 https://smart-india-nutrition.vercel.app/
+
+Explore the live NutriSmart application for nutrition guidance, food recommendations, health calculators, and personalized nutrition features.
+
 
 ---
 
