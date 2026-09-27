@@ -208,25 +208,53 @@ const CommonPage = () => {
   if (!target) return <div className="p-8 text-center text-red-500">Error: Invalid Category.</div>;
 
   // Filter foods for this view
-  const getFilteredItems = () => {
-    if (!selectedCategory) return [];
+const getFilteredItems = () => {
+  if (!selectedCategory || !target) return [];
 
-    let filtered = allFoods.filter(f => 
-      f.category_type === target.type && 
-      f.target_name === target.name && 
-      f.nutrient_type.toLowerCase() === selectedCategory.toLowerCase()
+  const normalize = (value) =>
+    String(value || "")
+      .toLowerCase()
+      .trim()
+      .replace(/[\s/_-]+/g, "");
+
+  const targetName = normalize(target.name);
+  const categoryName = normalize(selectedCategory);
+
+  let filtered = allFoods.filter((f) => {
+    const dbTarget = normalize(f.target_name);
+    const dbCategory = normalize(f.nutrient_type);
+
+    const targetMatches =
+      dbTarget === targetName ||
+      dbTarget.includes(targetName) ||
+      targetName.includes(dbTarget);
+
+    const categoryMatches =
+      dbCategory === categoryName ||
+      dbCategory.includes(categoryName) ||
+      categoryName.includes(dbCategory);
+
+    return (
+      f.category_type?.toLowerCase() === target.type.toLowerCase() &&
+      targetMatches &&
+      categoryMatches
     );
+  });
 
-    if (selectedCategory.toLowerCase() === "exercises") {
-      return filtered;
-    }
+  if (categoryName === "exercises") {
+    return filtered;
+  }
 
-    return filtered.filter(f => {
-      if (selectedRegion === "All India") return true;
-      return f.region === selectedRegion || f.region === "Common";
-    });
-  };
+  return filtered.filter((f) => {
+    if (selectedRegion === "All India") return true;
 
+    return (
+      f.region === selectedRegion ||
+      f.region === "Common" ||
+      !f.region
+    );
+  });
+};
   const currentItems = getFilteredItems();
 
   // If a category is active, render the Solutions Grid

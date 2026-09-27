@@ -23,7 +23,7 @@ const Products = lazy(() => import("./Component/Links/Product.jsx"));
 const Blog = lazy(() => import("./Component/Links/Blogs.jsx"));
 const AiAssistant = lazy(() => import("./Component/Links/AiAssistant.jsx"));
 const CalorieTracker = lazy(() => import("./Component/Links/CalorieTracker.jsx"));
-
+const NutritionFoods = lazy(() => import("./Component/Links/NutritionFoods.jsx"));
 /* ── Skeleton Loader Fallback ── */
 const PageSkeleton = () => (
   <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
@@ -110,7 +110,14 @@ const AnimatedRoutes = () => {
         <Route path="/oldage"   element={<PageWrapper><CommonPage /></PageWrapper>} />
 
         <Route path="/Products" element={<PageWrapper><ProductSection /></PageWrapper>} />
-
+<Route
+  path="/nutrition-foods"
+  element={
+    <LazyWrapperWithSuspense>
+      <NutritionFoods />
+    </LazyWrapperWithSuspense>
+  }
+/>
         <Route
           path="*"
           element={
